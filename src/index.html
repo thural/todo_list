@@ -74,17 +74,34 @@
     <div class="formBkg" style="display: none;"></div>
     <div id="form" style="display: none;">
         <h3>Add New Task</h3>
-
-        <input type="text" id="title" name="first_name" placeholder="Title" required>
-
-        <input type="number" id="priority" name="quantity" placeholder="Priority" min="1">
-
-        <div class="checkbox">
-            <label for="done">already read?</label>
-            <input type="checkbox" id="done" name="read">
+        <div class="task">
+            <div class="checkbox">
+                <input type="checkbox" id="done" name="read">
+            </div>
+            <input type="text" id="title" name="first_name" placeholder="Task" required>
         </div>
 
-        <button type="submit" onclick="projects.home.add()">Submit</button>
+
+        <div>
+            <textarea rows="6" cols="50" maxlength="300" placeholder="Note""></textarea>
+        </div>
+
+        <div class=" selectors">
+            <button type="submit" class="button" onclick="projects.home.add()">Save</button>
+
+            <input type="date" id="dueDate" name="dob">
+
+            <select name=" priority" id="priority">
+
+            <optgroup label="priority">
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+            </optgroup>
+
+            </select>
+        </div>
+        
     </div>
 
 </body>
