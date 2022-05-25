@@ -1,59 +1,57 @@
 const content = document.querySelector('.content');
 
 class List {
-    constructor(name) {
+    constructor(projectName, index) {
+        this.index = index;
         this.title = document.getElementById("title").value;
-        this.project = name;
+        this.project = projectName;
         this.priority = document.getElementById("priority").value;
-        this.done = document.getElementById("done").checked
-    }
-    showForm() {
-
+        this.done = document.getElementById("done").checked;
+        this.node = this.buildNode()
     }
 
-    deleteList(deleteBtn) {
-        delete this;
-        deleteBtn.parentElement.remove()
-        console.log(projects.home)
+    deleteList(node) {
+        delete projects[this.project].lists[this.index];
+        node.parentElement.remove();
+        //test
+        logProjectList();
+        logProjectNode();
     }
 
-    newListElem () {
-        const list = document.createElement('div');
+    buildNode() {
+        const node = document.createElement('div');
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = 'checkmark';
         checkbox.checked = 'false';
-        list.appendChild(checkbox);
+        node.appendChild(checkbox);
+
         const header = document.createElement('h2')
         header.textContent = this.title;
-        list.appendChild(header)
+        node.appendChild(header)
+
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = "delete";
         deleteBtn.addEventListener("click", () => this.deleteList(deleteBtn));
-        list.appendChild(deleteBtn);
-        return list
+        node.appendChild(deleteBtn);
+        
+        return node
     }
 };
 
 class Project {
-constructor(name){
-    this.name = name;
-    this.lists = [];
-    this.listElems = document.createElement('div')
-}
-    addList() {
-        this.lists.push(new List(this.name))
+    constructor(name) {
+        this.name = name;
+        this.lists = {};
+        this.node = document.createElement('div')
     }
 
-    appendLists() {
-        this.lists.forEach(list => {
-        this.listElems.appendChild(list.newListElem())
-        })
-    }
-
-    appendProject() {
-        this.appendLists();
-        content.appendChild(this.listElems)
+    add() {
+        const newList = new List(this.name, Object.keys(this.lists).length);
+        this.lists[Object.keys(this.lists).length] = newList;
+        this.node.appendChild(newList.node);
+        content.appendChild(this.node)
     }
 
 };
@@ -66,14 +64,15 @@ class Projects {
     }
 };
 
+
+
+
+
+
+////////////////////////////////
+
 let projects = new Projects();
 projects.add('home');
-console.log(projects.home);
-
-function addList() {
-    projects.home.addList();
-    projects.home.appendProject()
-};
 
 function openForm() {
     document.querySelector(".formBkg").style.display = "block";
@@ -88,3 +87,12 @@ function closeForm() {
 document.addEventListener('keydown', event => {
     if (event.key == 'Escape') closeForm()
 });
+
+///////////////////////////////////////test functions
+const logProjectList = () => {
+    console.log(projects.home.lists);
+};
+
+const logProjectNode = () => {
+    console.log(projects.home.node);
+}
