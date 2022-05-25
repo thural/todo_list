@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./index.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="top flex">
+            <div class="search flex">
+                <img src="./icons/magnify.svg" alt="">
+                <label for="search-box"></label>
+                <input type="text" name="search">
+            </div>
+            <div class="info flex">
+                <img src="./icons/bell-ring-outline.svg" alt="">
+                <span class="avatar"></span>
+                <h3>Corgy Oakley</h3>
+            </div>
+        </div>
+
+        <div class="bottom flex">
+            <div class="name">
+                <span class="avatar"></span>
+                <div>
+                    <p>Hi there,</p>
+                    <h2>Corgy Oakley (@corgy)</h2>
+                </div>
+
+                </p>
+            </div>
+            <div class="buttons">
+                <button type="button" onclick="openForm()">New</button>
+                <button type="button">Upload</button>
+                <button type="button">Share</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="sidebar">
+        <div class="dashboard-logo">
+            <h2><img src="./icons/view-dashboard.svg">Dashboard</h2>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li><a href="#"><img src="./icons/home.svg">Home</a></li>
+                <li><a href="#"><img src="./icons/card-account-mail-outline.svg">Profile</a></li>
+                <li><a href="#"><img src="./icons/message-reply.svg">Messages</a></li>
+                <li><a href="#"><img src="./icons/history.svg">History</a></li>
+                <li><a href="#"><img src="./icons/calendar-check-outline.svg">Tasks</a></li>
+                <li><a href="#"><img src="./icons/account-multiple.svg">Communities</a></li>
+            </ul>
+        </div>
+        <div class="branding">
+            <ul>
+                <li><a href="#"><img src="./icons/cog.svg">Settings</a></li>
+                <li><a href="#"><img src="./icons/help-circle.svg">Support</a></li>
+                <li><a href="#"><img src="./icons/shield-account.svg">Privacy</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content"></div>
+
+    <div class="formBkg" style="display: none;"></div>
+    <div id="form" style="display: none;">
+        <h3>Add New Task</h3>
+
+        <input type="text" id="title" name="first_name" placeholder="Title" required>
+
+        <input type="number" id="priority" name="quantity" placeholder="Priority" min="1">
+
+        <div class="checkbox">
+            <label for="done">already read?</label>
+            <input type="checkbox" id="done" name="read">
+        </div>
+
+        <button type="submit" onclick="addList()">Submit</button>
+    </div>
+
+</body>
+
+</html>
