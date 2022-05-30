@@ -1,19 +1,31 @@
+import forms from './forms';
 import style from './style.css';
+import plusImg from './icons/plus-thick.svg';
 import deleteImg from './icons/trash-can-outline.svg';
+import pencilImg from './icons/pencil.svg';
+
+const formElems = forms;
 
 const content = document.querySelector('.content');
 const deleteIcon = deleteImg;
+const plusIcon = plusImg;
+const pencilIcon = pencilImg;
 
+const projectSection = document.querySelector('.projects');
+
+//// List Class ///////////////////////////////////////////////////////////////
 class List {
     constructor(projectName, index) {
         this.index = index;
         this.title = document.getElementById("title").value;
-        this.note = document.querySelector('#form textarea').value;
+        this.note = document.querySelector('.form textarea').value;
         this.project = projectName;
         this.priority = document.getElementById("priority").value;
         this.done = document.getElementById("done").checked;
         this.node = this.buildNode()
     }
+
+    
 
     deleteList(node) {
         delete projects[this.project].lists[this.index];
@@ -23,11 +35,15 @@ class List {
     buildNode() {
         const node = document.createElement('div');
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = 'checkmark';
-        checkbox.checked = this.done;
+        const checkbox = document.createElement('div');
+        checkbox.classList.add('checkbox');
         node.appendChild(checkbox);
+
+        const checkInput = document.createElement('input');
+        checkInput.type = 'checkbox';
+        checkInput.id = 'checkmark';
+        checkInput.checked = this.done;
+        checkbox.appendChild(checkInput);
 
         const header = document.createElement('p');
         header.textContent = this.title;
@@ -47,12 +63,14 @@ class List {
         return node
     }
 };
-
+//// Project Class ////////////////////////////////////////////////////////////////
 class Project {
     constructor(name) {
         this.name = name;
+        this.title = document.getElementById("title").value;
+        this.note = document.querySelector('.form textarea').value;
         this.lists = {};
-        this.node = document.createElement('div')
+        this.node = this.buildNode()
     }
 
     add() {
@@ -62,37 +80,81 @@ class Project {
         content.appendChild(this.node)
     }
 
-};
+    buildNode() {
+        const node = document.createElement('div');
 
-class Projects {
-    constructor() {}
+        const title = document.createElement('h2');
+        title.textContent = this.title;
+        node.appendChild(title);
 
-    add(name) {
-        this[name] = new Project(name)
+        const note = document.createElement('p');
+        note.textContent = this.note;
+        node.appendChild(note);
+
+        node.classList.add('summary');
+
+        return node
+
     }
+
+};
+//// Projects Class ///////////////////////////////////////////////////////////////
+class Projects {
+    constructor() {
+        this.projects = {};
+        this.node = this.buildNode();
+    }
+
+    add() {
+        const name = document.querySelector('#project .title > input').value;
+        this.projects[name] = new Project(name);
+        this.node.appendChild(this.projects[name].node);
+        console.log(this);
+    }
+
+    buildNode() {
+        const node = document.createElement('div');
+
+        const panel = document.createElement('div');
+        const header = document.createElement('h2');
+        header.textContent = 'Projects';
+        panel.appendChild(header);
+
+        const plusBtn = document.createElement('img');
+        plusBtn.src = plusIcon;
+        plusBtn.addEventListener('click', () => openProjectForm());
+        panel.appendChild(plusBtn);
+
+        node.appendChild(panel);
+
+
+        for (key in this.projects) {
+
+            const project = document.createElement('div');
+
+            const title = document.createElement('h3');
+            title.textContent = this[key].title;
+            project.appendChild(title);
+
+            const editBtn = document.createElement('img');
+            editBtn.src = pencilIcon;
+            project.appendChild(editBtn);
+
+            const deleteBtn = document.createElement('img');
+            deleteBtn.src = deleteIcon;
+            project.appendChild(deleteBtn)
+
+            node.appendChild(project);
+        }
+
+        return node
+    }
+
 };
 
-////////////////////////////////////////////////////////////////////////
+//// Classes End////////////////////////////////////////////////////////////////////
 
 let projects = new Projects();
-projects.add('home');
+projectSection.appendChild(projects.node);
 
-function openForm() {
-    document.querySelector(".formBkg").style.display = "block";
-    document.querySelector("#form").style.display = "flex"
-};
-
-function closeForm() {
-    document.querySelector(".formBkg").style.display = "none";
-    document.querySelector("#form").style.display = "none"
-};
-
-document.addEventListener('keydown', event => {
-    if (event.key == 'Escape') closeForm()
-});
-
-const newBtn = document.querySelector('#newTask');
-newBtn.addEventListener('click', () => openForm());
-
-const submitBtn = document.querySelector('#submit');
-submitBtn.addEventListener('click', () => projects.home.add());
+forms.sayHi();
