@@ -132,6 +132,12 @@ select {
 }
 
 .task {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form {
     width: 100%;
     display: flex;
     align-items: center;
@@ -141,8 +147,22 @@ select {
     font-size: 1rem;
 }
 
-.task input {
+.form input {
     width: 100%;
+}
+
+.task button {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+#delete {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.fadeIn {
+    opacity: 1 !important;
 }
 
 .flex {
@@ -261,10 +281,16 @@ select {
 
 .content {
     display: grid;
-    padding: 1rem;
+    padding: 4rem;
     gap: 18px;
     background-color: #e2e8f0;
     overflow: auto;
+}
+
+.content p {
+    font-size: 1.5rem;
+    color: #4b5563;
+    margin: .5rem;
 }
 
 .home {

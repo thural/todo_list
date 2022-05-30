@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <script src="./index.js" defer></script>
     <title>Document</title>
 </head>
 
@@ -16,12 +14,10 @@
 
         <div class="top flex">
             <div class="search flex">
-                <img src="./icons/magnify.svg" alt="">
                 <label for="search-box"></label>
                 <input type="text" name="search">
             </div>
             <div class="info flex">
-                <img src="./icons/bell-ring-outline.svg" alt="">
                 <span class="avatar"></span>
                 <h3>Corgy Oakley</h3>
             </div>
@@ -38,7 +34,7 @@
                 </p>
             </div>
             <div class="buttons">
-                <button type="button" onclick="openForm()">New</button>
+                <button type="button" id="newTask">New</button>
                 <button type="button">Upload</button>
                 <button type="button">Share</button>
             </div>
@@ -48,23 +44,16 @@
 
     <div class="sidebar">
         <div class="dashboard-logo">
-            <h2><img src="./icons/view-dashboard.svg">Dashboard</h2>
+            <h2>Dashboard</h2>
         </div>
         <div class="navigation">
             <ul>
-                <li><a href="#"><img src="./icons/home.svg">Home</a></li>
-                <li><a href="#"><img src="./icons/card-account-mail-outline.svg">Profile</a></li>
-                <li><a href="#"><img src="./icons/message-reply.svg">Messages</a></li>
-                <li><a href="#"><img src="./icons/history.svg">History</a></li>
-                <li><a href="#"><img src="./icons/calendar-check-outline.svg">Tasks</a></li>
-                <li><a href="#"><img src="./icons/account-multiple.svg">Communities</a></li>
+                
             </ul>
         </div>
         <div class="branding">
             <ul>
-                <li><a href="#"><img src="./icons/cog.svg">Settings</a></li>
-                <li><a href="#"><img src="./icons/help-circle.svg">Support</a></li>
-                <li><a href="#"><img src="./icons/shield-account.svg">Privacy</a></li>
+                
             </ul>
         </div>
     </div>
@@ -73,21 +62,23 @@
 
     <div class="formBkg" style="display: none;"></div>
     <div id="form" style="display: none;">
+
         <h3>Add New Task</h3>
-        <div class="task">
+
+        <div class="form">
             <div class="checkbox">
                 <input type="checkbox" id="done" name="read">
             </div>
             <input type="text" id="title" name="first_name" placeholder="Task" required>
         </div>
 
-
         <div>
             <textarea rows="6" cols="50" maxlength="300" placeholder="Note""></textarea>
         </div>
 
         <div class=" selectors">
-            <button type="submit" class="button" onclick="projects.home.add()">Save</button>
+            
+            <button type="submit" class="button"id="submit">Save</button>
 
             <input type="date" id="dueDate" name="dob">
 
@@ -100,6 +91,7 @@
             </optgroup>
 
             </select>
+
         </div>
         
     </div>

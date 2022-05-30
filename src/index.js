@@ -1,9 +1,14 @@
+import style from './style.css';
+import deleteImg from './icons/trash-can-outline.svg';
+
 const content = document.querySelector('.content');
+const deleteIcon = deleteImg;
 
 class List {
     constructor(projectName, index) {
         this.index = index;
         this.title = document.getElementById("title").value;
+        this.note = document.querySelector('#form textarea').value;
         this.project = projectName;
         this.priority = document.getElementById("priority").value;
         this.done = document.getElementById("done").checked;
@@ -13,9 +18,6 @@ class List {
     deleteList(node) {
         delete projects[this.project].lists[this.index];
         node.parentElement.remove();
-        //test
-        logProjectList();
-        logProjectNode();
     }
 
     buildNode() {
@@ -24,18 +26,24 @@ class List {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = 'checkmark';
-        checkbox.checked = 'false';
+        checkbox.checked = this.done;
         node.appendChild(checkbox);
 
-        const header = document.createElement('h2')
+        const header = document.createElement('p');
         header.textContent = this.title;
-        node.appendChild(header)
+        node.appendChild(header);
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = "delete";
+        const deleteBtn = document.createElement('img');
+        deleteBtn.id = "delete";
+        deleteBtn.src = deleteIcon;
         deleteBtn.addEventListener("click", () => this.deleteList(deleteBtn));
         node.appendChild(deleteBtn);
-        
+
+        node.classList.add('task');
+
+        node.addEventListener('mouseenter', () => deleteBtn.classList.toggle('fadeIn'));
+        node.addEventListener('mouseleave', () => deleteBtn.classList.toggle('fadeIn'));
+
         return node
     }
 };
@@ -64,12 +72,7 @@ class Projects {
     }
 };
 
-
-
-
-
-
-////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 let projects = new Projects();
 projects.add('home');
@@ -88,11 +91,8 @@ document.addEventListener('keydown', event => {
     if (event.key == 'Escape') closeForm()
 });
 
-///////////////////////////////////////test functions
-const logProjectList = () => {
-    console.log(projects.home.lists);
-};
+const newBtn = document.querySelector('#newTask');
+newBtn.addEventListener('click', () => openForm());
 
-const logProjectNode = () => {
-    console.log(projects.home.node);
-}
+const submitBtn = document.querySelector('#submit');
+submitBtn.addEventListener('click', () => projects.home.add());
